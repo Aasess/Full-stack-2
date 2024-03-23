@@ -7,15 +7,14 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import Navbar from './components/Navbar'
 import RouteList from './RouteList'
 
+//LIB
+import 'react-toastify/dist/ReactToastify.css';
+
 function App() {
   return (
     <Router>
       <Navbar />
-      <div className="Employee-page container mt-5 mx-auto">
-        <div className="row justify-content-between">
-          <RouteList />
-        </div>
-      </div>
+      <RouteList />
     </Router>
   )
 }

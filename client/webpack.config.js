@@ -25,4 +25,13 @@ module.exports = {
     extensions: ['.js', '.jsx'],
   },
   mode: 'development',
+  devServer: {
+    static: {
+      directory: path.join(__dirname, 'public'),
+    },
+    compress: true,
+    port: 3000,
+    open: true,
+    historyApiFallback: true,
+  },
 }

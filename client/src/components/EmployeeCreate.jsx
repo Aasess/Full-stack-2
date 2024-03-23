@@ -1,6 +1,12 @@
 import React, { useState } from 'react'
 
-const EmployeeCreate = (props) => {
+//API
+import { graphQLCommand } from '../api/graphQLCommand'
+
+//LIB
+import { toast,ToastContainer } from 'react-toastify';
+
+const EmployeeCreate = () => {
   const [employee, setEmployee] = useState({
     firstName: '',
     lastName: '',
@@ -10,6 +16,28 @@ const EmployeeCreate = (props) => {
     department: 'IT',
     employeeType: 'FullTime',
   })
+
+  const addEmployee = async (employee) => {
+    const query = `mutation addEmployee($employee: InputEmployee!) {
+        addEmployee(employee: $employee) {
+            firstName
+            lastName
+            age
+            dateOfJoining
+            title
+            department
+            employeeType
+            currentStatus
+        }
+      }`
+    const data = await graphQLCommand(query, { employee })
+    if (data && data.addEmployee) {
+      toast.success("No data returned from addEmployee mutation.")
+    } else {
+     
+      toast.error("No data returned from addEmployee mutation.")
+    }
+  }
 
   const handleChange = (e) => {
     const newEmployee = {
@@ -23,10 +51,13 @@ const EmployeeCreate = (props) => {
   }
 
   const handleSubmit = () => {
-    props.addEmployee(employee)
+    addEmployee(employee)
   }
 
   return (
+    <div className="container mx-auto mt-5">
+        <p className="text-center fw-bold">Add a new Employee</p>
+        <hr />
     <form>
       <div className="mb-3">
         <label htmlFor="firstName" className="form-label">
@@ -141,6 +172,19 @@ const EmployeeCreate = (props) => {
         Add
       </button>
     </form>
+    <ToastContainer
+        position="bottom-right"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+        theme="dark"
+      />
+    </div>
   )
 }
 
