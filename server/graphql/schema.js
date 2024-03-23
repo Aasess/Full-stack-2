@@ -43,6 +43,7 @@ const typeDefs = `
   }
 
   type Employee {
+    id: ID!
     firstName: String!
     lastName: String!
     age: Int!
@@ -69,6 +70,7 @@ const typeDefs = `
   }
   type Mutation {
       addEmployee(employee : InputEmployee!): Employee!
+      deleteEmployee(id: ID!): Employee!
   }
 
   scalar GQLDate
@@ -91,6 +93,14 @@ const resolvers = {
         ...employee,
       })
       return newEmployee
+    },
+    deleteEmployee: async (_, { id }) => {
+      const deletedEmployee = await Employee.findByIdAndDelete(id)
+      if (deletedEmployee) {
+        return deletedEmployee
+      } else {
+        throw new Error('Employee not found')
+      }
     },
   },
 }

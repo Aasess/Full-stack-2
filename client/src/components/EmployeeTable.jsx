@@ -1,6 +1,13 @@
 import React from 'react'
 
-const EmployeeTable = (props) => (
+//ROUTER_DOM
+import { Link } from 'react-router-dom'
+
+//FONTAWESOME
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTrashCan, faEdit } from '@fortawesome/free-solid-svg-icons'
+
+const EmployeeTable = ({ employees, ...rest }) => (
   <div className="mt-4">
     <table className="table table-striped">
       <thead>
@@ -14,11 +21,12 @@ const EmployeeTable = (props) => (
           <th>Department</th>
           <th>Employee Type</th>
           <th>Status</th>
+          <th>Action</th>
         </tr>
       </thead>
       <tbody>
-        {props.employees.map((employee, index) => (
-          <Employee data={employee} key={index} count={index + 1} />
+        {employees.map((employee, index) => (
+          <Employee data={employee} key={index} count={index + 1} {...rest} />
         ))}
       </tbody>
     </table>
@@ -26,7 +34,7 @@ const EmployeeTable = (props) => (
 )
 
 const Employee = (props) => {
-  const { data, count } = props
+  const { data, count, deleteEmployee } = props
 
   return (
     <tr>
@@ -39,6 +47,19 @@ const Employee = (props) => {
       <td>{data.department}</td>
       <td>{data.employeeType}</td>
       <td>{data.currentStatus}</td>
+      <td className="d-flex gap-4">
+        <Link to={`/edit/${data.id}`} className="fs-2 text-success">
+          <FontAwesomeIcon icon={faEdit} className="fa-xs" />
+        </Link>
+        <button
+          className="btn fs-6 p-0 text-danger"
+          onClick={() => {
+            deleteEmployee(data.id)
+          }}
+        >
+          <FontAwesomeIcon icon={faTrashCan} className="fa-lg" />
+        </button>
+      </td>
     </tr>
   )
 }

@@ -1,4 +1,4 @@
-export async function graphQLCommand(query, variables) {
+export const graphQLCommand = async (query, variables) => {
   try {
     const response = await fetch('http://localhost:3002/graphql', {
       method: 'POST',

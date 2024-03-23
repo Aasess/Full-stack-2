@@ -1,9 +1,12 @@
 import React from 'react'
+
+//ROUTER_DOM
 import { Link } from 'react-router-dom'
+
 function Navbar() {
   return (
     <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-      <a className="navbar-brand" href="#">
+      <a className="navbar-brand" href="/">
         EMS
       </a>
       <button

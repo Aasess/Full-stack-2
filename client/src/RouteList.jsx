@@ -5,6 +5,7 @@ import { Route, Routes } from 'react-router-dom'
 
 //COMPONENTS
 import EmployeeCreate from './components/EmployeeCreate'
+import EmployeeEdit from './components/EmployeeEdit'
 const EmployeeDirectory = lazy(() => import('./components/EmployeeDirectory'))
 
 const RouteList = () => {
@@ -13,6 +14,7 @@ const RouteList = () => {
       <Routes>
         <Route path="/" exact element={<EmployeeDirectory />} />
         <Route path="/create" exact element={<EmployeeCreate />} />
+        <Route path="/edit/:id" exact element={<EmployeeEdit />} />
       </Routes>
     </Suspense>
   )
