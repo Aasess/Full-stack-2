@@ -16,6 +16,9 @@ import { useParams } from 'react-router-dom';
 const EmployeeDirectory = () => {
   const params = useParams();
   const [employees, setEmployees] = useState([])
+  const [filteredEmployees, setFilteredEmployees] = useState([])
+
+  const [searchTerm, setSearchTerm] = useState('')
 
   //function to fetch all employee records
   const fetchData = async () => {
@@ -71,32 +74,48 @@ const EmployeeDirectory = () => {
           currentStatus
       }
     }
-  `;
+  `
 
-    const data = await graphQLCommand(query, { employeeType: type.charAt(0).toUpperCase() + type.slice(1) });
+    const data = await graphQLCommand(query, {
+      employeeType: type.charAt(0).toUpperCase() + type.slice(1),
+    })
     if (data && data.getEmployees) {
-      setEmployees(data.getEmployees);
+      setEmployees(data.getEmployees)
     } else {
-      setEmployees([]);
-      toast.error('No employees found for the selected type');
+      setEmployees([])
+      toast.error('No employees found for the selected type')
     }
   }
 
   useEffect(() => {
-    if(params.type){
+    if (params.type) {
       //if type is found then fetch data from server based on type
       fetchDataBasedOnType(params.type)
-    }
-    else {
+    } else {
       //get data from server
       fetchData()
     }
   }, [params])
 
+  useEffect(() => {
+    //if search term is changed then filter the employees data
+    const newFilteredEmployees = employees.filter((employee) => {
+      return `${employee.firstName} ${employee.lastName}`
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
+    })
+
+    setFilteredEmployees(newFilteredEmployees)
+  }, [searchTerm])
+
+  useEffect(() => {
+    setFilteredEmployees(employees)
+  }, [employees])
+
   return (
     <div className="container mx-auto mt-5">
-      <EmployeeSearch />
-      <EmployeeTable {...{ employees, deleteEmployee }} />
+      <EmployeeSearch {...{ searchTerm, setSearchTerm }} />
+      <EmployeeTable {...{ deleteEmployee }} employees={filteredEmployees} />
       <ToastContainer
         position="bottom-right"
         autoClose={5000}

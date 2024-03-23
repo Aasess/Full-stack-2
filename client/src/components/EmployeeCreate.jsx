@@ -6,16 +6,17 @@ import { graphQLCommand } from '../api/graphQLCommand'
 //LIB
 import { toast,ToastContainer } from 'react-toastify';
 
+const initialState = {
+  firstName: '',
+  lastName: '',
+  age: '',
+  dateOfJoining: '',
+  title: 'Employee',
+  department: 'IT',
+  employeeType: 'FullTime',
+}
 const EmployeeCreate = () => {
-  const [employee, setEmployee] = useState({
-    firstName: '',
-    lastName: '',
-    age: '',
-    dateOfJoining: '',
-    title: 'Employee',
-    department: 'IT',
-    employeeType: 'FullTime',
-  })
+  const [employee, setEmployee] = useState(initialState)
 
   const addEmployee = async (employee) => {
     const query = `mutation addEmployee($employee: InputEmployee!) {
@@ -51,6 +52,7 @@ const EmployeeCreate = () => {
 
   const handleSubmit = () => {
     addEmployee(employee)
+    setEmployee(initialState)
   }
 
   return (
