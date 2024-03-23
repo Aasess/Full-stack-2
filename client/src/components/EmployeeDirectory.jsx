@@ -10,8 +10,11 @@ import { graphQLCommand } from '../api/graphQLCommand'
 //LIB
 import { toast, ToastContainer } from 'react-toastify'
 
+//REACT-ROUTER-DOM
+import { useParams } from 'react-router-dom';
 
 const EmployeeDirectory = () => {
+  const params = useParams();
   const [employees, setEmployees] = useState([])
 
   //function to fetch all employee records
@@ -53,10 +56,42 @@ const EmployeeDirectory = () => {
     }
   }
 
+  const fetchDataBasedOnType = async (type) => {
+    let query = `
+    query GetEmployeeByType($employeeType: EmployeeType) {
+      getEmployees(employeeType: $employeeType) {
+          id
+          firstName
+          lastName
+          age
+          dateOfJoining
+          title
+          department
+          employeeType
+          currentStatus
+      }
+    }
+  `;
+
+    const data = await graphQLCommand(query, { employeeType: type.charAt(0).toUpperCase() + type.slice(1) });
+    if (data && data.getEmployees) {
+      setEmployees(data.getEmployees);
+    } else {
+      setEmployees([]);
+      toast.error('No employees found for the selected type');
+    }
+  }
+
   useEffect(() => {
-    //get date from server
-    fetchData()
-  }, [])
+    if(params.type){
+      //if type is found then fetch data from server based on type
+      fetchDataBasedOnType(params.type)
+    }
+    else {
+      //get data from server
+      fetchData()
+    }
+  }, [params])
 
   return (
     <div className="container mx-auto mt-5">

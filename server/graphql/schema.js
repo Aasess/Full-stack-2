@@ -66,7 +66,7 @@ const typeDefs = `
   }
 
   type Query {
-      getEmployees: [Employee!]!
+      getEmployees(employeeType: EmployeeType): [Employee!]!
       getEmployee(id: ID!): Employee!
   }
   type Mutation {
@@ -83,9 +83,18 @@ const resolvers = {
   GQLDate,
   Query: {
     // Query resolvers here
-    getEmployees: async () => {
-      const employees = await Employee.find({})
-      return employees
+    getEmployees: async (_, { employeeType }) => {
+      let query = {}
+
+      if (employeeType) {
+        query = { employeeType }
+      }
+
+      const employees = await Employee.find(query)
+      return employees.map((employee) => ({
+        ...employee._doc,
+        id: employee._id,
+      }))
     },
     getEmployee: async (_, { id }) => {
       const employee = await Employee.findById(id)

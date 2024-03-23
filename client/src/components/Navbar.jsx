@@ -31,22 +31,22 @@ function Navbar() {
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/employees/fulltime">
+            <NavLink className="nav-link" to="/fullTime">
               Full Time Employees
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/employees/parttime">
+            <NavLink className="nav-link" to="/partTime">
               Part Time Employees
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/employees/contract">
+            <NavLink className="nav-link" to="/contract">
               Contract Employees
             </NavLink>
           </li>
           <li className="nav-item">
-            <NavLink className="nav-link" to="/employees/seasonal">
+            <NavLink className="nav-link" to="/seasonal">
               Seasonal Employees
             </NavLink>
           </li>

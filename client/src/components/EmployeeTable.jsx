@@ -1,7 +1,7 @@
 import React from 'react'
 
 //ROUTER_DOM
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 //FONTAWESOME
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -35,18 +35,29 @@ const EmployeeTable = ({ employees, ...rest }) => (
 
 const Employee = (props) => {
   const { data, count, deleteEmployee } = props
+  const navigate = useNavigate()
+
+  const handleEmployeeClick = () => {
+    //navigate to single detail page
+    navigate(`/employee/detail/${data.id}`)
+  }
 
   return (
     <tr>
       <td>{count}</td>
-      <td>{data.firstName}</td>
+      <td
+        className="text-primary fw-bold cursor-pointer"
+        onClick={handleEmployeeClick}
+      >
+        {data.firstName}
+      </td>
       <td>{data.lastName}</td>
       <td>{data.age}</td>
       <td>{data.dateOfJoining}</td>
       <td>{data.title}</td>
       <td>{data.department}</td>
       <td>{data.employeeType}</td>
-      <td>{data.currentStatus}</td>
+      <td>{data.currentStatus === 1 ? 'Working' : 'Retired'}</td>
       <td className="d-flex gap-4">
         <Link to={`/edit/${data.id}`} className="fs-2 text-success">
           <FontAwesomeIcon icon={faEdit} className="fa-xs" />

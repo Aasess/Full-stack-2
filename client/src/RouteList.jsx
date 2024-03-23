@@ -7,6 +7,7 @@ import { Navigate, Route, Routes } from 'react-router-dom'
 import EmployeeCreate from './components/EmployeeCreate'
 import EmployeeEdit from './components/EmployeeEdit'
 const EmployeeDirectory = lazy(() => import('./components/EmployeeDirectory'))
+const EmployeeDetails = lazy(() => import('./components/EmployeeDetails'))
 
 const RouteList = () => {
   return (
@@ -15,7 +16,8 @@ const RouteList = () => {
         <Route path="/employees" exact element={<EmployeeDirectory />} />
         <Route path="/create" exact element={<EmployeeCreate />} />
         <Route path="/edit/:id" exact element={<EmployeeEdit />} />
-        <Route path="/employees/:type" element={<EmployeeDirectory />} />
+        <Route path="/:type" element={<EmployeeDirectory />} />
+        <Route path="/employee/detail/:id" element={<EmployeeDetails />} />
         <Route path="/" element={<Navigate to="/employees" />} />
       </Routes>
     </Suspense>
