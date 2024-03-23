@@ -67,9 +67,11 @@ const typeDefs = `
 
   type Query {
       getEmployees: [Employee!]!
+      getEmployee(id: ID!): Employee!
   }
   type Mutation {
       addEmployee(employee : InputEmployee!): Employee!
+      editEmployee(id: ID!, employee: InputEmployee!): Employee!
       deleteEmployee(id: ID!): Employee!
   }
 
@@ -85,6 +87,16 @@ const resolvers = {
       const employees = await Employee.find({})
       return employees
     },
+    getEmployee: async (_, { id }) => {
+      const employee = await Employee.findById(id)
+      if (!employee) {
+        throw new Error('Employee not found')
+      }
+      return {
+        ...employee._doc,
+        id: employee._id,
+      }
+    },
   },
   Mutation: {
     // Mutation resolvers here
@@ -93,6 +105,18 @@ const resolvers = {
         ...employee,
       })
       return newEmployee
+    },
+    editEmployee: async (_, { id, employee }) => {
+      const updatedEmployee = await Employee.findByIdAndUpdate(id, employee, {
+        new: true,
+      })
+      if (!updatedEmployee) {
+        throw new Error('Employee not found')
+      }
+      return {
+        ...updatedEmployee._doc,
+        id: updatedEmployee._id,
+      }
     },
     deleteEmployee: async (_, { id }) => {
       const deletedEmployee = await Employee.findByIdAndDelete(id)
