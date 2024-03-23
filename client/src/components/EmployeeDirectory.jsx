@@ -74,7 +74,7 @@ const EmployeeDirectory = () => {
   }, [])
 
   return (
-    <React.Fragment>
+    <div className="row justify-content-between">
       <div className="col-lg-8 col-md-12">
         <EmployeeSearch />
         <EmployeeTable employees={employees} />
@@ -84,7 +84,7 @@ const EmployeeDirectory = () => {
         <hr />
         <EmployeeCreate addEmployee={addEmployee} />
       </div>
-    </React.Fragment>
+    </div>
   )
 }
 
