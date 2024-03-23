@@ -1,7 +1,7 @@
 import React from 'react'
 
 //ROUTER_DOM
-import { Link } from 'react-router-dom'
+import { NavLink } from 'react-router-dom'
 
 function Navbar() {
   return (
@@ -20,17 +20,42 @@ function Navbar() {
       >
         <span className="navbar-toggler-icon"></span>
       </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
+      <div
+        className="collapse navbar-collapse justify-content-around"
+        id="navbarNav"
+      >
         <ul className="navbar-nav">
-          <li className="nav-item active">
-            <Link className="nav-link" to="/">
-              Home
-            </Link>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/employees">
+              All Employees
+            </NavLink>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/create">
+            <NavLink className="nav-link" to="/employees/fulltime">
+              Full Time Employees
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/employees/parttime">
+              Part Time Employees
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/employees/contract">
+              Contract Employees
+            </NavLink>
+          </li>
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/employees/seasonal">
+              Seasonal Employees
+            </NavLink>
+          </li>
+        </ul>
+        <ul className="navbar-nav">
+          <li className="nav-item">
+            <NavLink className="nav-link" to="/create">
               Create
-            </Link>
+            </NavLink>
           </li>
         </ul>
       </div>
