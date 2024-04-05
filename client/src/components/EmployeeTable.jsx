@@ -8,31 +8,38 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faEdit } from '@fortawesome/free-solid-svg-icons'
 
 //REACT-BOOTSTRAP
-import { Table, Button } from 'react-bootstrap';
+import { Table, Button } from 'react-bootstrap'
 
 const EmployeeTable = ({ employees, ...rest }) => (
-  <div className="mt-4">
-    <Table striped bordered hover>
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>First Name</th>
-          <th>Last Name</th>
-          <th>Age</th>
-          <th>Joined Date</th>
-          <th>Title</th>
-          <th>Department</th>
-          <th>Employee Type</th>
-          <th>Status</th>
-          <th>Action</th>
-        </tr>
-      </thead>
-      <tbody>
-        {employees.map((employee, index) => (
-          <Employee data={employee} key={index} count={index + 1} {...rest} />
-        ))}
-      </tbody>
-    </Table>
+  <div className="mt-1">
+    {employees.length > 0 ? (
+      <Table striped bordered hover>
+        <thead>
+          <tr>
+            <th>ID</th>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Age</th>
+            <th>Joined Date</th>
+            <th>Title</th>
+            <th>Department</th>
+            <th>Employee Type</th>
+            <th>Status</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          {employees.map((employee, index) => (
+            <Employee data={employee} key={index} count={index + 1} {...rest} />
+          ))}
+        </tbody>
+      </Table>
+    ) : (
+      <div className="fw-bold d-flex justify-content-center align-items-center">
+        No record founds
+      </div>
+    )}
   </div>
 )
 

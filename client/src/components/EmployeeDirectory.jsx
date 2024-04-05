@@ -2,10 +2,10 @@ import React, { useState, useEffect } from 'react'
 
 //COMPONENTS
 import EmployeeSearch from './EmployeeSearch'
-import EmployeeTable from './EmployeeTable'
+import EmployeeTab from './EmployeeTab'
 
 //REACT-BOOTSTRAP
-import { Container } from 'react-bootstrap';
+import { Container } from 'react-bootstrap'
 
 //API
 import { graphQLCommand } from '../api/graphQLCommand'
@@ -14,10 +14,10 @@ import { graphQLCommand } from '../api/graphQLCommand'
 import { toast, ToastContainer } from 'react-toastify'
 
 //REACT-ROUTER-DOM
-import { useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom'
 
 const EmployeeDirectory = () => {
-  const params = useParams();
+  const params = useParams()
   const [employees, setEmployees] = useState([])
   const [filteredEmployees, setFilteredEmployees] = useState([])
 
@@ -125,7 +125,8 @@ const EmployeeDirectory = () => {
   return (
     <Container className="mx-auto mt-5">
       <EmployeeSearch {...{ searchTerm, setSearchTerm }} />
-      <EmployeeTable {...{ deleteEmployee }} employees={filteredEmployees} />
+      <EmployeeTab employees={filteredEmployees} {...{ deleteEmployee }} />
+      {/* <EmployeeTable {...{ deleteEmployee }} employees={filteredEmployees} /> */}
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
