@@ -7,9 +7,12 @@ import { Link, useNavigate } from 'react-router-dom'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTrashCan, faEdit } from '@fortawesome/free-solid-svg-icons'
 
+//REACT-BOOTSTRAP
+import { Table, Button } from 'react-bootstrap';
+
 const EmployeeTable = ({ employees, ...rest }) => (
   <div className="mt-4">
-    <table className="table table-striped">
+    <Table striped bordered hover>
       <thead>
         <tr>
           <th>ID</th>
@@ -29,7 +32,7 @@ const EmployeeTable = ({ employees, ...rest }) => (
           <Employee data={employee} key={index} count={index + 1} {...rest} />
         ))}
       </tbody>
-    </table>
+    </Table>
   </div>
 )
 
@@ -62,14 +65,16 @@ const Employee = (props) => {
         <Link to={`/edit/${data.id}`} className="fs-2 text-success">
           <FontAwesomeIcon icon={faEdit} className="fa-xs" />
         </Link>
-        <button
-          className="btn fs-6 p-0 text-danger"
+        <Button
+          variant='outline'
+          size="sm"
+          className="text-danger"
           onClick={() => {
             deleteEmployee(data.id)
           }}
         >
           <FontAwesomeIcon icon={faTrashCan} className="fa-lg" />
-        </button>
+        </Button>
       </td>
     </tr>
   )

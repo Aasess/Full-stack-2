@@ -4,6 +4,9 @@ import React, { useState, useEffect } from 'react'
 import EmployeeSearch from './EmployeeSearch'
 import EmployeeTable from './EmployeeTable'
 
+//REACT-BOOTSTRAP
+import { Container } from 'react-bootstrap';
+
 //API
 import { graphQLCommand } from '../api/graphQLCommand'
 
@@ -113,7 +116,7 @@ const EmployeeDirectory = () => {
   }, [employees])
 
   return (
-    <div className="container mx-auto mt-5">
+    <Container className="mx-auto mt-5">
       <EmployeeSearch {...{ searchTerm, setSearchTerm }} />
       <EmployeeTable {...{ deleteEmployee }} employees={filteredEmployees} />
       <ToastContainer
@@ -128,7 +131,7 @@ const EmployeeDirectory = () => {
         pauseOnHover
         theme="dark"
       />
-    </div>
+    </Container>
   )
 }
 

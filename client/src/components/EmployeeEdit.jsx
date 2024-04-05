@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from 'react'
 
+//REACT-BOOTSTRAP
+import { Container, Form, Button } from 'react-bootstrap';
+
 //API
 import { graphQLCommand } from '../api/graphQLCommand'
 
 //LIB
 import { toast, ToastContainer } from 'react-toastify'
+
+//ROUTER DOM
 import { useNavigate, useParams } from 'react-router-dom'
+
 const EmployeeEdit = () => {
   const [employee, setEmployee] = useState({
     firstName: '',
@@ -101,7 +107,7 @@ const EmployeeEdit = () => {
   }, [])
 
   return (
-    <div className="container mx-auto mt-5">
+    <Container className="mx-auto mt-5">
       <p className="text-center fw-bold">Edit Employee</p>
       <hr />
       <div className="d-flex gap-2 fw-bold">
@@ -114,13 +120,10 @@ const EmployeeEdit = () => {
         <p>Employee Type:</p>
         <p>{employee?.employeeType}</p>
       </div>
-      <form>
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            Title:
-          </label>
-          <select
-            className="form-select"
+      <Form>
+        <Form.Group className="mb-3">
+          <Form.Label>Title:</Form.Label>
+          <Form.Select
             name="title"
             value={employee.title}
             onChange={handleChange}
@@ -129,15 +132,12 @@ const EmployeeEdit = () => {
             <option value="Manager">Manager</option>
             <option value="Director">Director</option>
             <option value="VP">VP</option>
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <div className="mb-3">
-          <label htmlFor="department" className="form-label">
-            Department:
-          </label>
-          <select
-            className="form-select"
+        <Form.Group className="mb-3">
+          <Form.Label>Department:</Form.Label>
+          <Form.Select
             name="department"
             value={employee.department}
             onChange={handleChange}
@@ -146,33 +146,25 @@ const EmployeeEdit = () => {
             <option value="Marketing">Marketing</option>
             <option value="HR">HR</option>
             <option value="Engineering">Engineering</option>
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <div className="mb-3">
-          <label htmlFor="status" className="form-label">
-            Status:
-          </label>
-          <select
-            className="form-select"
-            aria-label="Default select example"
+        <Form.Group className="mb-3">
+          <Form.Label>Status:</Form.Label>
+          <Form.Select
             name="currentStatus"
             value={employee.currentStatus}
             onChange={handleChange}
           >
             <option value={1}>Working</option>
             <option value={0}>Retired</option>
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleSubmit}
-        >
+        <Button variant="primary" onClick={handleSubmit}>
           Edit
-        </button>
-      </form>
+        </Button>
+      </Form>
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
@@ -185,8 +177,8 @@ const EmployeeEdit = () => {
         pauseOnHover
         theme="dark"
       />
-    </div>
-  )
+    </Container>
+  );
 }
 
 export default EmployeeEdit

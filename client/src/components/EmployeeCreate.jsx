@@ -1,10 +1,13 @@
 import React, { useState } from 'react'
 
-//API
-import { graphQLCommand } from '../api/graphQLCommand'
+// REACT-BOOTSTRAP
+import { Form, Button, Container, Row, Col } from 'react-bootstrap'
 
-//LIB
-import { toast,ToastContainer } from 'react-toastify';
+// LIB
+import { toast, ToastContainer } from 'react-toastify'
+
+// API
+import { graphQLCommand } from '../api/graphQLCommand'
 
 const initialState = {
   firstName: '',
@@ -15,6 +18,7 @@ const initialState = {
   department: 'IT',
   employeeType: 'FullTime',
 }
+
 const EmployeeCreate = () => {
   const [employee, setEmployee] = useState(initialState)
 
@@ -56,74 +60,59 @@ const EmployeeCreate = () => {
   }
 
   return (
-    <div className="container mx-auto mt-5">
-      <p className="text-center fw-bold">Add a new Employee</p>
+    <Container className="mt-5 mb-5">
+      <h2 className="text-center fw-bold">Add a new Employee</h2>
       <hr />
-      <form>
-        <div className="mb-3">
-          <label htmlFor="firstName" className="form-label">
-            First Name:
-          </label>
-          <input
+      <Form>
+        <Form.Group className="mb-3" controlId="firstName">
+          <Form.Label>First Name:</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
-            id="firstName"
             name="firstName"
             value={employee.firstName}
             onChange={handleChange}
           />
-        </div>
+        </Form.Group>
 
-        <div className="mb-3">
-          <label htmlFor="lastName" className="form-label">
-            Last Name:
-          </label>
-          <input
+        <Form.Group className="mb-3" controlId="lastName">
+          <Form.Label>Last Name:</Form.Label>
+          <Form.Control
             type="text"
-            className="form-control"
-            id="lastName"
             name="lastName"
             value={employee.lastName}
             onChange={handleChange}
           />
-        </div>
+        </Form.Group>
 
-        <div className="mb-3 row">
-          <div className="col-5">
-            <label htmlFor="age" className="form-label">
-              Age:
-            </label>
-            <input
-              type="number"
-              className="form-control"
-              id="age"
-              name="age"
-              value={employee.age}
-              onChange={handleChange}
-            />
-          </div>
+        <Row className="mb-3">
+          <Col md={5}>
+            <Form.Group controlId="age">
+              <Form.Label>Age:</Form.Label>
+              <Form.Control
+                type="number"
+                name="age"
+                value={employee.age}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
 
-          <div className="col-7">
-            <label htmlFor="dateOfJoining" className="form-label">
-              Date of Joining:
-            </label>
-            <input
-              type="date"
-              className="form-control"
-              id="dateOfJoining"
-              name="dateOfJoining"
-              value={employee.dateOfJoining}
-              onChange={handleChange}
-            />
-          </div>
-        </div>
+          <Col md={7}>
+            <Form.Group controlId="dateOfJoining">
+              <Form.Label>Date of Joining:</Form.Label>
+              <Form.Control
+                type="date"
+                name="dateOfJoining"
+                value={employee.dateOfJoining}
+                onChange={handleChange}
+              />
+            </Form.Group>
+          </Col>
+        </Row>
 
-        <div className="mb-3">
-          <label htmlFor="title" className="form-label">
-            Title:
-          </label>
-          <select
-            className="form-select"
+        <Form.Group className="mb-3" controlId="title">
+          <Form.Label>Title:</Form.Label>
+          <Form.Select
             name="title"
             value={employee.title}
             onChange={handleChange}
@@ -132,15 +121,12 @@ const EmployeeCreate = () => {
             <option value="Manager">Manager</option>
             <option value="Director">Director</option>
             <option value="VP">VP</option>
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <div className="mb-3">
-          <label htmlFor="department" className="form-label">
-            Department:
-          </label>
-          <select
-            className="form-select"
+        <Form.Group className="mb-3" controlId="department">
+          <Form.Label>Department:</Form.Label>
+          <Form.Select
             name="department"
             value={employee.department}
             onChange={handleChange}
@@ -149,15 +135,12 @@ const EmployeeCreate = () => {
             <option value="Marketing">Marketing</option>
             <option value="HR">HR</option>
             <option value="Engineering">Engineering</option>
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <div className="mb-3">
-          <label htmlFor="employeeType" className="form-label">
-            Employee Type:
-          </label>
-          <select
-            className="form-select"
+        <Form.Group className="mb-3" controlId="employeeType">
+          <Form.Label>Employee Type:</Form.Label>
+          <Form.Select
             name="employeeType"
             value={employee.employeeType}
             onChange={handleChange}
@@ -166,17 +149,13 @@ const EmployeeCreate = () => {
             <option value="PartTime">Part-Time</option>
             <option value="Contract">Contract</option>
             <option value="Seasonal">Seasonal</option>
-          </select>
-        </div>
+          </Form.Select>
+        </Form.Group>
 
-        <button
-          type="button"
-          className="btn btn-primary"
-          onClick={handleSubmit}
-        >
+        <Button variant="primary" onClick={handleSubmit}>
           Add
-        </button>
-      </form>
+        </Button>
+      </Form>
       <ToastContainer
         position="bottom-right"
         autoClose={5000}
@@ -189,7 +168,7 @@ const EmployeeCreate = () => {
         pauseOnHover
         theme="dark"
       />
-    </div>
+    </Container>
   )
 }
 

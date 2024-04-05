@@ -1,66 +1,52 @@
 import React from 'react'
 
-//ROUTER_DOM
+// REACT-BOOTSTRAP
 import { NavLink } from 'react-router-dom'
+import { Navbar, Nav } from 'react-bootstrap'
 
-function Navbar() {
+function CustomNavbar() {
   return (
-    <nav className="navbar navbar-expand-lg navbar-dark bg-dark p-3">
-      <a className="navbar-brand" href="/">
-        EMS
-      </a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div
-        className="collapse navbar-collapse justify-content-around"
-        id="navbarNav"
-      >
-        <ul className="navbar-nav">
-          <li className="nav-item">
+    <Navbar bg="dark" expand="lg" variant="dark" className="p-3">
+      <Navbar.Brand href="/">EMS</Navbar.Brand>
+      <Navbar.Toggle aria-controls="basic-navbar-nav" />
+      <Navbar.Collapse id="basic-navbar-nav" className="justify-content-around">
+        <Nav className="mr-auto">
+          <Nav.Item>
             <NavLink className="nav-link" to="/employees">
               All Employees
             </NavLink>
-          </li>
-          <li className="nav-item">
+          </Nav.Item>
+          <Nav.Item>
             <NavLink className="nav-link" to="/fullTime">
               Full Time Employees
             </NavLink>
-          </li>
-          <li className="nav-item">
+          </Nav.Item>
+          <Nav.Item>
             <NavLink className="nav-link" to="/partTime">
               Part Time Employees
             </NavLink>
-          </li>
-          <li className="nav-item">
+          </Nav.Item>
+          <Nav.Item>
             <NavLink className="nav-link" to="/contract">
               Contract Employees
             </NavLink>
-          </li>
-          <li className="nav-item">
+          </Nav.Item>
+          <Nav.Item>
             <NavLink className="nav-link" to="/seasonal">
               Seasonal Employees
             </NavLink>
-          </li>
-        </ul>
-        <ul className="navbar-nav">
-          <li className="nav-item">
+          </Nav.Item>
+        </Nav>
+        <Nav>
+          <Nav.Item>
             <NavLink className="nav-link" to="/create">
               Create
             </NavLink>
-          </li>
-        </ul>
-      </div>
-    </nav>
+          </Nav.Item>
+        </Nav>
+      </Navbar.Collapse>
+    </Navbar>
   )
 }
 
-export default Navbar
+export default CustomNavbar

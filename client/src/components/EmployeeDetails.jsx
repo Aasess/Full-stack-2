@@ -1,5 +1,12 @@
 import React, { useState, useEffect } from 'react'
+
+//ROUTER DOM
 import { useParams } from 'react-router-dom'
+
+//REACT-BOOTSTRAP
+import { Card, Container } from 'react-bootstrap'
+
+//API
 import { graphQLCommand } from '../api/graphQLCommand'
 
 const EmployeeDetails = () => {
@@ -37,18 +44,18 @@ const EmployeeDetails = () => {
   }, [id])
 
   if (!employee) {
-    return <div>Loading...</div>
+    return <Container className="mt-5">Loading...</Container>
   }
 
   return (
-    <div className="container mt-5">
+    <Container className="mt-5">
       <h2 className="mb-4">Employee Details</h2>
-      <div className="card">
-        <div className="card-body">
-          <h5 className="card-title">
+      <Card>
+        <Card.Body>
+          <Card.Title>
             {employee.firstName} {employee.lastName}
-          </h5>
-          <p className="card-text d-flex flex-column gap-2">
+          </Card.Title>
+          <Card.Text className="d-flex flex-column gap-2">
             <span>
               <strong>ID:</strong> {employee.id}
             </span>
@@ -71,10 +78,10 @@ const EmployeeDetails = () => {
               <strong>Status:</strong>{' '}
               {employee.currentStatus === 1 ? 'Working' : 'Retired'}
             </span>
-          </p>
-        </div>
-      </div>
-    </div>
+          </Card.Text>
+        </Card.Body>
+      </Card>
+    </Container>
   )
 }
 
