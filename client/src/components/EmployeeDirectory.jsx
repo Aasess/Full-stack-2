@@ -43,7 +43,14 @@ const EmployeeDirectory = () => {
   }
 
   //function to delete a employee record
-  const deleteEmployee = async (id) => {
+  const deleteEmployee = async (id, status) => {
+    //check if the status of employee is 'active' or 'working' (value is 1)
+    if (status === 1) {
+      // if so then display error messge
+      toast.error("CAN'T DELETE EMPLOYEE - STATUS ACTIVE")
+      return
+    }
+
     const query = `mutation deleteEmployee($id: ID!) {
       deleteEmployee(id: $id) {
           id

@@ -70,7 +70,7 @@ const Employee = (props) => {
           size="sm"
           className="text-danger"
           onClick={() => {
-            deleteEmployee(data.id)
+            deleteEmployee(data.id, data.currentStatus)
           }}
         >
           <FontAwesomeIcon icon={faTrashCan} className="fa-lg" />
