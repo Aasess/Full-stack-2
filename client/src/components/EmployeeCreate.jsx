@@ -8,6 +8,7 @@ import { toast, ToastContainer } from 'react-toastify'
 
 // API
 import { graphQLCommand } from '../api/graphQLCommand'
+import { getRetirementDate } from '../helpers'
 
 const initialState = {
   firstName: '',
@@ -55,6 +56,22 @@ const EmployeeCreate = () => {
   }
 
   const handleSubmit = () => {
+    //check if employee age is greater than 65 or not?
+    if (employee.age >= 65) {
+      toast.error('Employee age should be less than 65!')
+      return
+    }
+
+    //check if retirement date is greater than current date or not
+    const retirementDate = getRetirementDate(employee)
+    const currentDate = new Date()
+
+    if (currentDate > retirementDate) {
+      toast.error(
+        'The employee has already reached the retirement age and is no longer active.'
+      )
+      return
+    }
     addEmployee(employee)
     setEmployee(initialState)
   }

@@ -8,10 +8,12 @@ import { Card, Container } from 'react-bootstrap'
 
 //API
 import { graphQLCommand } from '../api/graphQLCommand'
+import { getRetirementDate } from '../helpers'
 
 const EmployeeDetails = () => {
   const { id } = useParams()
   const [employee, setEmployee] = useState(null)
+  const [timeLeftForRetirement, setTimeLeftForRetirement] = useState(null)
 
   useEffect(() => {
     const fetchEmployee = async () => {
@@ -34,7 +36,41 @@ const EmployeeDetails = () => {
       const data = await graphQLCommand(query, { id })
 
       if (data && data.getEmployee) {
-        setEmployee(data.getEmployee)
+        const employeeData = data.getEmployee
+        setEmployee(employeeData)
+
+        // if current status is retired (0) then simply display 0 on all
+        if (employeeData.currentStatus === 0) {
+          setTimeLeftForRetirement({
+            years: 0,
+            months: 0,
+            days: 0,
+          })
+        } else {
+          // calculate time left for retirement
+          const currentDate = new Date()
+          const retirementDate = getRetirementDate(employeeData)
+
+          // check if the retirement date has passed
+          if (currentDate > retirementDate) {
+            setTimeLeftForRetirement({
+              years: 0,
+              months: 0,
+              days: 0,
+            })
+          } else {
+            const diffTime = Math.abs(retirementDate - currentDate)
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24))
+            const diffYears = Math.floor(diffDays / 365)
+            const diffMonths = Math.floor((diffDays % 365) / 30)
+
+            setTimeLeftForRetirement({
+              years: diffYears,
+              months: diffMonths,
+              days: diffDays % 30,
+            })
+          }
+        }
       } else {
         setEmployee(null)
       }
@@ -78,6 +114,14 @@ const EmployeeDetails = () => {
               <strong>Status:</strong>{' '}
               {employee.currentStatus === 1 ? 'Working' : 'Retired'}
             </span>
+            {timeLeftForRetirement && (
+              <span>
+                <strong>Time Left for Retirement:</strong>{' '}
+                {timeLeftForRetirement.years} years,{' '}
+                {timeLeftForRetirement.months} months,{' '}
+                {timeLeftForRetirement.days} days
+              </span>
+            )}
           </Card.Text>
         </Card.Body>
       </Card>
